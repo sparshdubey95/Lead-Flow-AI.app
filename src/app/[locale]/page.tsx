@@ -4,8 +4,29 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { PhoneMissed, MessageSquare, Mic, Globe, Calendar, Mail, Smartphone, ArrowRight, Menu, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { ModeToggle } from "@/components/theme-toggle";
+
+const pricingTiers = [
+  {
+    name: "Monthly",
+    price: "$39",
+    period: "/ month",
+    description: "Perfect for single clinics getting started with AI automation.",
+    features: ["WhatsApp CRM integration", "AI Auto-replies", "Voice-note transcription", "Basic Analytics"],
+    ctaText: "Get Started",
+    isRecommended: false
+  },
+  {
+    name: "Quarterly",
+    price: "$99",
+    period: "/ 3 months",
+    description: "Our most popular plan. Save money and secure seamless automation.",
+    features: ["Everything in Monthly", "Multi-lingual FAQ handling", "Follow-up sequences", "Priority AI processing"],
+    ctaText: "Buy Now",
+    isRecommended: true
+  }
+];
 
 export default function Home() {
   return (
@@ -86,7 +107,7 @@ export default function Home() {
           >
             <Link href="/login" className="group">
               <Button size="lg" className="rounded-full px-8 h-14 text-base cursor-pointer">
-                Start Free Trial
+                Get Started
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -197,64 +218,54 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <Card className="bg-white/60 dark:bg-black/40 backdrop-blur-xl border-border/50">
-                <CardHeader>
-                  <CardTitle className="font-serif text-3xl font-medium">Starter</CardTitle>
-                  <CardDescription className="text-base pt-2">Perfect for independent practices.</CardDescription>
-                  <div className="mt-4">
-                    <span className="text-5xl font-serif font-medium">$99</span>
-                    <span className="text-muted-foreground">/month</span>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {['Up to 500 AI conversations/mo', 'WhatsApp Integration', 'Basic Auto-Replies', 'Email Support'].map((feature, i) => (
-                      <li key={i} className="flex items-center gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-primary" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Link href="/login" className="w-full">
-                    <Button variant="outline" className="w-full rounded-full h-12">
-                      Start 14-Day Free Trial
-                    </Button>
-                  </Link>
-                </CardFooter>
-              </Card>
-
-              <Card className="bg-primary text-primary-foreground shadow-xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 bg-white/20 px-3 py-1 rounded-bl-xl text-xs font-medium uppercase tracking-wider">
-                  Most Popular
-                </div>
-                <CardHeader>
-                  <CardTitle className="font-serif text-3xl font-medium">Growth</CardTitle>
-                  <CardDescription className="text-primary-foreground/80 text-base pt-2">For growing clinics and agencies.</CardDescription>
-                  <div className="mt-4">
-                    <span className="text-5xl font-serif font-medium">$299</span>
-                    <span className="text-primary-foreground/80">/month</span>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {['Unlimited AI conversations', 'Calendar & CRM Integrations', 'Voice-Note Transcription', 'Multi-lingual Support', '24/7 Priority Support'].map((feature, i) => (
-                      <li key={i} className="flex items-center gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-white" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Link href="/login" className="w-full">
-                    <Button className="w-full rounded-full h-12 bg-white text-primary hover:bg-white/90">
-                      Get Started
-                    </Button>
-                  </Link>
-                </CardFooter>
-              </Card>
+              {pricingTiers.map((tier) => (
+                <Card 
+                  key={tier.name}
+                  className={tier.isRecommended 
+                    ? "bg-primary text-primary-foreground shadow-xl relative overflow-hidden" 
+                    : "bg-white/60 dark:bg-black/40 backdrop-blur-xl border-border/50"}
+                >
+                  {tier.isRecommended && (
+                    <div className="absolute top-0 right-0 bg-white/20 px-3 py-1 rounded-bl-xl text-xs font-medium uppercase tracking-wider">
+                      Most Popular
+                    </div>
+                  )}
+                  <CardHeader>
+                    <CardTitle className="font-serif text-3xl font-medium">{tier.name}</CardTitle>
+                    <CardDescription className={tier.isRecommended ? "text-primary-foreground/80 text-base pt-2" : "text-base pt-2"}>
+                      {tier.description}
+                    </CardDescription>
+                    <div className="mt-4">
+                      <span className="text-5xl font-serif font-medium">{tier.price}</span>
+                      <span className={tier.isRecommended ? "text-primary-foreground/80" : "text-muted-foreground"}>
+                        {tier.period}
+                      </span>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-3">
+                      {tier.features.map((feature, i) => (
+                        <li key={i} className="flex items-center gap-3">
+                          <CheckCircle2 className={`w-5 h-5 ${tier.isRecommended ? "text-white" : "text-primary"}`} />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                  <CardFooter>
+                    <Link href="/login" className="w-full">
+                      <Button 
+                        variant={tier.isRecommended ? "default" : "outline"} 
+                        className={tier.isRecommended 
+                          ? "w-full rounded-full h-12 bg-white text-primary hover:bg-white/90" 
+                          : "w-full rounded-full h-12"}
+                      >
+                        {tier.ctaText}
+                      </Button>
+                    </Link>
+                  </CardFooter>
+                </Card>
+              ))}
             </div>
           </div>
         </section>

@@ -1,0 +1,10 @@
+{
+  "Navigation": {
+    "product": "Prodotto",
+    "pricing": "Prezzi",
+    "login": "Accedi"
+  },
+  "Pricing": {
+    "title": "Prezzi Semplici e Trasparenti"
+  }
+}

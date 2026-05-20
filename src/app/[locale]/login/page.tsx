@@ -1,5 +1,5 @@
 import { AuthForm } from "./auth-form"
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
 import { ModeToggle } from "@/components/theme-toggle"
 
 export default function LoginPage() {

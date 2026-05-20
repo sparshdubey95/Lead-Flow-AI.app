@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation"
 import { createClient } from "@/utils/supabase/server"
 import { OrgSetupModal } from "./org-setup-modal"
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
 import { ModeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 

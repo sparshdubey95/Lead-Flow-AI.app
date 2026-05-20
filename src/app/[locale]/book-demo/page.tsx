@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { Link } from "@/i18n/routing"
 import { ModeToggle } from "@/components/theme-toggle"
 import { ArrowLeft } from "lucide-react"
 
