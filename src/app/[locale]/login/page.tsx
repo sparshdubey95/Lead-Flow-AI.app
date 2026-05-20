@@ -1,4 +1,4 @@
-import { AuthForm } from "./auth-form"
+import { AuthFormWrapper } from "./auth-form-wrapper"
 import { Link } from "@/i18n/routing"
 import { ModeToggle } from "@/components/theme-toggle"
 
@@ -19,7 +19,7 @@ export default function LoginPage() {
       
       <main className="flex-1 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
-          <AuthForm />
+          <AuthFormWrapper />
         </div>
       </main>
     </div>
