@@ -1,5 +1,5 @@
 /**
- * Lead-Flow AI — Agnostic Multi-Tenant Webhook Server
+ * TryAssistly.AI — Agnostic Multi-Tenant Webhook Server
  * ───────────────────────────────────────
  * Standalone Express server that:
  *  1. Handles Meta WhatsApp Cloud API webhook verification per org
@@ -45,7 +45,7 @@ app.use(express.json());
 // Health check
 // ──────────────────────────────────────────────
 app.get("/", (_req, res) => {
-  res.json({ status: "ok", service: "Lead-Flow AI Multi-Tenant Webhook Server" });
+  res.json({ status: "ok", service: "TryAssistly.AI Multi-Tenant Webhook Server" });
 });
 
 // ──────────────────────────────────────────────
@@ -237,7 +237,7 @@ async function sendWhatsAppMessage(recipientPhone, textBody, phoneId, accessToke
 app.listen(PORT, () => {
   console.log(`
 ╔══════════════════════════════════════════════╗
-║  Lead-Flow AI — Multi-Tenant Webhook Server  ║
+║  TryAssistly.AI — Multi-Tenant Webhook Server  ║
 ║  Running on http://localhost:${PORT}            ║
 ╚══════════════════════════════════════════════╝
   `);

@@ -18,7 +18,7 @@ const pricingTiers = [
     period: "/ month",
     description: "Perfect for single-location businesses getting started.",
     features: ["WhatsApp CRM integration", "AI Auto-replies", "Voice-note transcription", "Basic Analytics"],
-    ctaText: "Start 1-Day Trial",
+    ctaText: "Payments Coming Soon",
     isRecommended: false,
     // TODO: Replace with your Lemon Squeezy / Paddle checkout link
     checkoutUrl: "YOUR_MONTHLY_CHECKOUT_LINK"
@@ -29,7 +29,7 @@ const pricingTiers = [
     period: "/ 3 months",
     description: "Our most popular plan. Save 15% on seamless automation.",
     features: ["Everything in Monthly", "Multi-lingual FAQ handling", "Follow-up sequences", "Priority AI processing"],
-    ctaText: "Start 1-Day Trial",
+    ctaText: "Payments Coming Soon",
     isRecommended: true,
     // TODO: Replace with your Lemon Squeezy / Paddle checkout link
     checkoutUrl: "YOUR_QUARTERLY_CHECKOUT_LINK"
@@ -40,7 +40,7 @@ const pricingTiers = [
     period: "/ year",
     description: "Best value for established businesses.",
     features: ["Everything in Quarterly", "White-glove onboarding", "Custom AI training instructions"],
-    ctaText: "Start 1-Day Trial",
+    ctaText: "Payments Coming Soon",
     isRecommended: false,
     // TODO: Replace with your Lemon Squeezy / Paddle checkout link
     checkoutUrl: "YOUR_YEARLY_CHECKOUT_LINK"
@@ -54,10 +54,8 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
-              <span className="text-primary-foreground font-serif font-bold text-lg">L</span>
-            </div>
-            <span className="font-serif font-bold text-xl tracking-tight">Lead-Flow-AI</span>
+            <img src="/logo.png" alt="TryAssistly.AI Logo" className="w-8 h-8 rounded-md object-cover" />
+            <span className="font-serif font-bold text-xl tracking-tight">TryAssistly.AI</span>
           </Link>
           
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
@@ -224,7 +222,7 @@ export default function Home() {
                 </div>
                 <CardTitle className="font-serif text-2xl font-medium">Voice-Note Transcription</CardTitle>
                 <CardDescription className="text-base pt-2 text-muted-foreground/80 font-sans leading-relaxed">
-                  Clients love voice notes. Lead-Flow AI automatically transcribes incoming voice messages and extracts actionable data for your team.
+                  Clients love voice notes. TryAssistly AI automatically transcribes incoming voice messages and extracts actionable data for your team.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -294,18 +292,22 @@ export default function Home() {
                       ))}
                     </ul>
                   </CardContent>
-                  <CardFooter>
+                  <CardFooter className="flex-col gap-3">
                     <Button 
                       variant={tier.isRecommended ? "default" : "outline"} 
+                      disabled={true}
                       className={tier.isRecommended 
-                        ? "w-full rounded-full h-12 bg-white text-primary hover:bg-white/90 cursor-pointer" 
-                        : "w-full rounded-full h-12 cursor-pointer"}
+                        ? "w-full rounded-full h-12 bg-white text-primary hover:bg-white/90" 
+                        : "w-full rounded-full h-12"}
                       onClick={() => {
                         window.open(tier.checkoutUrl, "_blank");
                       }}
                     >
                       {tier.ctaText}
                     </Button>
+                    <p className="text-xs text-center text-muted-foreground mt-2">
+                      We are currently finalizing our merchant approval. Check back in 48 hours to start your trial!
+                    </p>
                   </CardFooter>
                 </Card>
               ))}
@@ -316,12 +318,10 @@ export default function Home() {
       
       <footer className="border-t border-border/40 py-12 text-center text-muted-foreground bg-white/30 dark:bg-black/30 backdrop-blur-sm">
         <div className="flex items-center justify-center gap-2 mb-4">
-          <div className="w-6 h-6 bg-primary/20 rounded-md flex items-center justify-center">
-            <span className="text-primary font-serif font-bold text-xs">L</span>
-          </div>
-          <span className="font-serif font-bold text-lg tracking-tight">Lead-Flow-AI.app</span>
+          <img src="/logo.png" alt="TryAssistly.AI Logo" className="w-6 h-6 rounded-md object-cover" />
+          <span className="font-serif font-bold text-lg tracking-tight">TryAssistly.AI</span>
         </div>
-        <p className="text-sm font-sans">&copy; {new Date().getFullYear()} Lead-Flow-AI.app. All rights reserved.</p>
+        <p className="text-sm font-sans">&copy; {new Date().getFullYear()} TryAssistly.AI. All rights reserved.</p>
       </footer>
     </div>
   );

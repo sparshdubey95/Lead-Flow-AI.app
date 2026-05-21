@@ -8,10 +8,8 @@ export default function BookDemoPage() {
       <header className="w-full border-b border-border/40 bg-background/95 backdrop-blur">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
-              <span className="text-primary-foreground font-serif font-bold text-lg">L</span>
-            </div>
-            <span className="font-serif font-bold text-xl tracking-tight">LeadGate.AI</span>
+            <img src="/logo.png" alt="TryAssistly.AI Logo" className="w-8 h-8 rounded-md object-cover" />
+            <span className="font-serif font-bold text-xl tracking-tight">TryAssistly.AI</span>
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/" className="text-sm font-medium flex items-center hover:text-primary transition-colors">
@@ -25,7 +23,7 @@ export default function BookDemoPage() {
 
       <main className="flex-1 flex flex-col items-center py-16 px-4">
         <div className="text-center max-w-2xl mb-12">
-          <h1 className="font-serif text-4xl md:text-5xl font-medium mb-4">See LeadGate in Action</h1>
+          <h1 className="font-serif text-4xl md:text-5xl font-medium mb-4">See TryAssistly in Action</h1>
           <p className="text-muted-foreground text-lg">
             Choose a time below to see how our AI receptionist can automate your workflow and catch every missed patient.
           </p>

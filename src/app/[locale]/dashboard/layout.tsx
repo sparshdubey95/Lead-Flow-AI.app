@@ -20,9 +20,12 @@ export default function DashboardLayout({
   const SidebarContent = () => (
     <div className="flex h-full flex-col justify-between">
       <div className="px-4 py-6">
-        <h2 className="mb-6 px-2 text-xl font-bold tracking-tight">
-          Lead-Flow-AI.app
-        </h2>
+        <div className="flex items-center gap-2 mb-8 px-2">
+          <img src="/logo.png" alt="TryAssistly.AI Logo" className="w-8 h-8 rounded-md object-cover" />
+          <span className="font-serif font-bold text-xl tracking-tight">
+          TryAssistly.AI
+          </span>
+        </div>
         <nav className="flex flex-col gap-2">
           <Link href="/dashboard" className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:bg-muted/80">
             <MessageSquare className="h-4 w-4" />
@@ -88,7 +91,10 @@ export default function DashboardLayout({
               <SidebarContent />
             </SheetContent>
           </Sheet>
-          <div className="font-semibold">Lead-Flow-AI.app</div>
+          <div className="flex items-center gap-2">
+          <img src="/logo.png" alt="TryAssistly.AI Logo" className="w-6 h-6 rounded-md object-cover" />
+          <div className="font-semibold">TryAssistly.AI</div>
+        </div>
         </header>
 
         {/* Dynamic Page Content */}

@@ -61,7 +61,7 @@ export function OrgSetupModal({ userId }: { userId: string }) {
           </div>
           <CardTitle className="font-serif text-2xl">Setup Your Clinic</CardTitle>
           <CardDescription>
-            Welcome to LeadGate.AI! Please enter your clinic or organization name to get started.
+            Welcome to TryAssistly.AI! Please enter your organization name to get started.
           </CardDescription>
         </CardHeader>
         <CardContent>

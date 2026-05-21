@@ -8,10 +8,8 @@ export default function LoginPage() {
       <header className="w-full border-b border-border/40 bg-background/95 backdrop-blur">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
-              <span className="text-primary-foreground font-serif font-bold text-lg">L</span>
-            </div>
-            <span className="font-serif font-bold text-xl tracking-tight">LeadGate.AI</span>
+            <img src="/logo.png" alt="TryAssistly.AI Logo" className="w-8 h-8 rounded-md object-cover" />
+            <span className="font-serif font-bold text-xl tracking-tight">TryAssistly.AI</span>
           </Link>
           <ModeToggle />
         </div>

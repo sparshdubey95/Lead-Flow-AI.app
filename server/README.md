@@ -1,6 +1,6 @@
-# Lead-Flow AI — WhatsApp Webhook Server
+# TryAssistly.AI — WhatsApp Webhook Server
 
-Standalone Express.js server that powers the AI receptionist for Lead-Flow AI.
+Standalone Express.js server that powers the AI receptionist for TryAssistly.AI.
 
 ## Architecture
 

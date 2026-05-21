@@ -115,8 +115,8 @@ export default function SettingsPage() {
   }
 
   const webhookUrl = orgId
-    ? `https://api.lead-flow-ai.app/webhook/${orgId}`
-    : "https://api.lead-flow-ai.app/webhook/..."
+    ? `https://api.tryassistly.ai/webhook/${orgId}`
+    : "https://api.tryassistly.ai/webhook/..."
 
   const handleCopy = () => {
     navigator.clipboard.writeText(webhookUrl)
@@ -290,7 +290,7 @@ export default function SettingsPage() {
               </div>
               <div>
                 <CardTitle className="text-xl font-serif">Webhook Configuration</CardTitle>
-                <CardDescription>Use these details to connect Meta WhatsApp to your Lead-Flow AI instance.</CardDescription>
+                <CardDescription>Use these details to connect Meta WhatsApp to your TryAssistly.AI instance.</CardDescription>
               </div>
             </div>
           </CardHeader>

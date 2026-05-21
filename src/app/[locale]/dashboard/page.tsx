@@ -96,9 +96,9 @@ export default function InboxPage() {
             </div>
 
             {/* AI Processing State indicator */}
-            <div className="flex items-center gap-2 text-sm text-muted-foreground mt-4">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              <span>Lead-Flow AI is analyzing incoming voice note...</span>
+            <div className="flex items-center justify-center gap-2 text-muted-foreground text-sm py-4">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>TryAssistly AI is analyzing incoming voice note...</span>
             </div>
 
           </div>
