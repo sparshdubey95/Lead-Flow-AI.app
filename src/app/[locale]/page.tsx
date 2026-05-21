@@ -2,29 +2,48 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { PhoneMissed, MessageSquare, Mic, Globe, Calendar, Mail, Smartphone, ArrowRight, Menu, CheckCircle2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { PhoneMissed, MessageSquare, Mic, Globe, Calendar, Mail, Smartphone, ArrowRight, Menu, CheckCircle2, Sparkles, Building2, Scissors, Briefcase, Home as HomeIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/routing";
 import { ModeToggle } from "@/components/theme-toggle";
 
+// ──────────────────────────────────────────────
+// PRICING DATA — Paste your checkout URLs below
+// ──────────────────────────────────────────────
 const pricingTiers = [
   {
     name: "Monthly",
     price: "$39",
     period: "/ month",
-    description: "Perfect for single clinics getting started with AI automation.",
+    description: "Perfect for single-location businesses getting started.",
     features: ["WhatsApp CRM integration", "AI Auto-replies", "Voice-note transcription", "Basic Analytics"],
-    ctaText: "Get Started",
-    isRecommended: false
+    ctaText: "Start 1-Day Trial",
+    isRecommended: false,
+    // TODO: Replace with your Lemon Squeezy / Paddle checkout link
+    checkoutUrl: "YOUR_MONTHLY_CHECKOUT_LINK"
   },
   {
     name: "Quarterly",
     price: "$99",
     period: "/ 3 months",
-    description: "Our most popular plan. Save money and secure seamless automation.",
+    description: "Our most popular plan. Save 15% on seamless automation.",
     features: ["Everything in Monthly", "Multi-lingual FAQ handling", "Follow-up sequences", "Priority AI processing"],
-    ctaText: "Buy Now",
-    isRecommended: true
+    ctaText: "Start 1-Day Trial",
+    isRecommended: true,
+    // TODO: Replace with your Lemon Squeezy / Paddle checkout link
+    checkoutUrl: "YOUR_QUARTERLY_CHECKOUT_LINK"
+  },
+  {
+    name: "Yearly",
+    price: "$199",
+    period: "/ year",
+    description: "Best value for established businesses.",
+    features: ["Everything in Quarterly", "White-glove onboarding", "Custom AI training instructions"],
+    ctaText: "Start 1-Day Trial",
+    isRecommended: false,
+    // TODO: Replace with your Lemon Squeezy / Paddle checkout link
+    checkoutUrl: "YOUR_YEARLY_CHECKOUT_LINK"
   }
 ];
 
@@ -38,7 +57,7 @@ export default function Home() {
             <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
               <span className="text-primary-foreground font-serif font-bold text-lg">L</span>
             </div>
-            <span className="font-serif font-bold text-xl tracking-tight">LeadGate.AI</span>
+            <span className="font-serif font-bold text-xl tracking-tight">Lead-Flow-AI</span>
           </Link>
           
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
@@ -77,7 +96,7 @@ export default function Home() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            Introducing LeadGate 2.0
+            Trusted by 500+ local businesses
           </motion.div>
 
           <motion.h1 
@@ -86,8 +105,8 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-serif text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-balance max-w-5xl leading-[1.1]"
           >
-            What if speaking was enough? <br />
-            <span className="text-muted-foreground/60 italic">Catch every missed patient.</span>
+            Never lose a lead <br />
+            <span className="text-muted-foreground/60 italic">on WhatsApp again.</span>
           </motion.h1>
 
           <motion.p 
@@ -96,7 +115,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl text-balance font-sans leading-relaxed"
           >
-            LeadGate AI acts as a 24/7 receptionist via WhatsApp. Automatically engage leads, answer queries, and book appointments through natural voice and text conversations.
+            Your 24/7 AI receptionist answers inquiries instantly in any language, books appointments, and saves you hours — so you never miss another opportunity.
           </motion.p>
 
           <motion.div 
@@ -105,9 +124,9 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 flex flex-col sm:flex-row gap-4"
           >
-            <Link href="/login" className="group">
+            <Link href="/#pricing" className="group">
               <Button size="lg" className="rounded-full px-8 h-14 text-base cursor-pointer">
-                Get Started
+                Start Free Trial
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -116,6 +135,21 @@ export default function Home() {
                 Book a Demo
               </Button>
             </Link>
+          </motion.div>
+
+          {/* Social proof tags */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-12 flex flex-wrap justify-center gap-3"
+          >
+            {["Real Estate", "Salons & Spas", "Consultants", "Agencies", "Service Businesses"].map((tag) => (
+              <span key={tag} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-muted text-muted-foreground text-xs font-medium border border-border/40">
+                <Sparkles className="w-3 h-3" />
+                {tag}
+              </span>
+            ))}
           </motion.div>
         </section>
 
@@ -154,12 +188,12 @@ export default function Home() {
         {/* Feature Grid Section (Solutions) */}
         <section id="solutions" className="w-full max-w-6xl mx-auto px-4 py-32 scroll-mt-20">
           <div className="text-center mb-16">
-            <h2 className="font-serif text-3xl md:text-5xl font-medium mb-6">Everything you need to scale</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Our AI handles the busywork so you can focus on what matters most: providing excellent care to your patients.</p>
+            <h2 className="font-serif text-3xl md:text-5xl font-medium mb-6">Everything you need to capture & convert</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Our AI handles the busywork so you can focus on what matters most: growing your business and delighting your customers.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="bg-white/60 dark:bg-black/40 backdrop-blur-xl border-border/50 hover:shadow-lg transition-all duration-300 group overflow-hidden cursor-default shadow-sm hover:-translate-y-1">
+            <Card className="bg-card backdrop-blur-xl border-border/50 hover:shadow-lg transition-all duration-300 group overflow-hidden cursor-default shadow-sm hover:-translate-y-1">
               <CardHeader>
                 <div className="w-12 h-12 bg-primary/5 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-300">
                   <PhoneMissed className="w-6 h-6 text-primary" />
@@ -171,7 +205,7 @@ export default function Home() {
               </CardHeader>
             </Card>
 
-            <Card className="bg-white/60 dark:bg-black/40 backdrop-blur-xl border-border/50 hover:shadow-lg transition-all duration-300 group overflow-hidden cursor-default shadow-sm hover:-translate-y-1">
+            <Card className="bg-card backdrop-blur-xl border-border/50 hover:shadow-lg transition-all duration-300 group overflow-hidden cursor-default shadow-sm hover:-translate-y-1">
               <CardHeader>
                 <div className="w-12 h-12 bg-primary/5 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-300">
                   <MessageSquare className="w-6 h-6 text-primary" />
@@ -183,24 +217,24 @@ export default function Home() {
               </CardHeader>
             </Card>
 
-            <Card className="bg-white/60 dark:bg-black/40 backdrop-blur-xl border-border/50 hover:shadow-lg transition-all duration-300 group overflow-hidden cursor-default shadow-sm hover:-translate-y-1">
+            <Card className="bg-card backdrop-blur-xl border-border/50 hover:shadow-lg transition-all duration-300 group overflow-hidden cursor-default shadow-sm hover:-translate-y-1">
               <CardHeader>
                 <div className="w-12 h-12 bg-primary/5 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-300">
                   <Mic className="w-6 h-6 text-primary" />
                 </div>
                 <CardTitle className="font-serif text-2xl font-medium">Voice-Note Transcription</CardTitle>
                 <CardDescription className="text-base pt-2 text-muted-foreground/80 font-sans leading-relaxed">
-                  Patients prefer voice notes. LeadGate automatically transcribes incoming voice messages and extracts actionable data.
+                  Clients love voice notes. Lead-Flow AI automatically transcribes incoming voice messages and extracts actionable data for your team.
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="bg-white/60 dark:bg-black/40 backdrop-blur-xl border-border/50 hover:shadow-lg transition-all duration-300 group overflow-hidden cursor-default shadow-sm hover:-translate-y-1">
+            <Card className="bg-card backdrop-blur-xl border-border/50 hover:shadow-lg transition-all duration-300 group overflow-hidden cursor-default shadow-sm hover:-translate-y-1">
               <CardHeader>
                 <div className="w-12 h-12 bg-primary/5 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-300">
                   <Globe className="w-6 h-6 text-primary" />
                 </div>
-                <CardTitle className="font-serif text-2xl font-medium">Multi-lingual FAQ</CardTitle>
+                <CardTitle className="font-serif text-2xl font-medium">Multi-lingual Replies</CardTitle>
                 <CardDescription className="text-base pt-2 text-muted-foreground/80 font-sans leading-relaxed">
                   Break language barriers effortlessly. Automatically detect and reply in Spanish, German, French, and over 40 other languages.
                 </CardDescription>
@@ -212,18 +246,26 @@ export default function Home() {
         {/* Pricing Section */}
         <section id="pricing" className="w-full py-32 bg-white/40 dark:bg-black/40 border-y border-border/40 backdrop-blur-sm scroll-mt-20">
           <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-16">
+            <div className="text-center mb-8">
               <h2 className="font-serif text-3xl md:text-5xl font-medium mb-6">Simple, transparent pricing</h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Start capturing missed revenue today. No hidden fees, cancel anytime.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Free trial badge */}
+            <div className="flex justify-center mb-12">
+              <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-primary/30 bg-primary/5 text-primary gap-2">
+                <Sparkles className="w-4 h-4" />
+                1-Day Free Trial — No Credit Card Required
+              </Badge>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {pricingTiers.map((tier) => (
                 <Card 
                   key={tier.name}
                   className={tier.isRecommended 
-                    ? "bg-primary text-primary-foreground shadow-xl relative overflow-hidden" 
-                    : "bg-white/60 dark:bg-black/40 backdrop-blur-xl border-border/50"}
+                    ? "bg-primary text-primary-foreground shadow-xl relative overflow-hidden border-primary" 
+                    : "bg-card backdrop-blur-xl border-border/50"}
                 >
                   {tier.isRecommended && (
                     <div className="absolute top-0 right-0 bg-white/20 px-3 py-1 rounded-bl-xl text-xs font-medium uppercase tracking-wider">
@@ -238,7 +280,7 @@ export default function Home() {
                     <div className="mt-4">
                       <span className="text-5xl font-serif font-medium">{tier.price}</span>
                       <span className={tier.isRecommended ? "text-primary-foreground/80" : "text-muted-foreground"}>
-                        {tier.period}
+                        {" "}{tier.period}
                       </span>
                     </div>
                   </CardHeader>
@@ -246,23 +288,24 @@ export default function Home() {
                     <ul className="space-y-3">
                       {tier.features.map((feature, i) => (
                         <li key={i} className="flex items-center gap-3">
-                          <CheckCircle2 className={`w-5 h-5 ${tier.isRecommended ? "text-white" : "text-primary"}`} />
-                          <span>{feature}</span>
+                          <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${tier.isRecommended ? "text-white" : "text-primary"}`} />
+                          <span className="text-sm">{feature}</span>
                         </li>
                       ))}
                     </ul>
                   </CardContent>
                   <CardFooter>
-                    <Link href="/login" className="w-full">
-                      <Button 
-                        variant={tier.isRecommended ? "default" : "outline"} 
-                        className={tier.isRecommended 
-                          ? "w-full rounded-full h-12 bg-white text-primary hover:bg-white/90" 
-                          : "w-full rounded-full h-12"}
-                      >
-                        {tier.ctaText}
-                      </Button>
-                    </Link>
+                    <Button 
+                      variant={tier.isRecommended ? "default" : "outline"} 
+                      className={tier.isRecommended 
+                        ? "w-full rounded-full h-12 bg-white text-primary hover:bg-white/90 cursor-pointer" 
+                        : "w-full rounded-full h-12 cursor-pointer"}
+                      onClick={() => {
+                        window.open(tier.checkoutUrl, "_blank");
+                      }}
+                    >
+                      {tier.ctaText}
+                    </Button>
                   </CardFooter>
                 </Card>
               ))}
@@ -276,9 +319,9 @@ export default function Home() {
           <div className="w-6 h-6 bg-primary/20 rounded-md flex items-center justify-center">
             <span className="text-primary font-serif font-bold text-xs">L</span>
           </div>
-          <span className="font-serif font-bold text-lg tracking-tight">LeadGate.AI</span>
+          <span className="font-serif font-bold text-lg tracking-tight">Lead-Flow-AI.app</span>
         </div>
-        <p className="text-sm font-sans">&copy; {new Date().getFullYear()} LeadGate.AI. All rights reserved.</p>
+        <p className="text-sm font-sans">&copy; {new Date().getFullYear()} Lead-Flow-AI.app. All rights reserved.</p>
       </footer>
     </div>
   );

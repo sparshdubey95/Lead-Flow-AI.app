@@ -16,8 +16,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "LeadGate AI | Catch every missed patient",
-  description: "AI acts as a 24/7 receptionist via WhatsApp.",
+  title: "Lead-Flow AI | Never Lose a Lead on WhatsApp Again",
+  description: "Your 24/7 AI receptionist for local businesses. Automate lead capture, booking, and multilingual replies on WhatsApp — for real estate, salons, consultants, and agencies.",
+  keywords: "WhatsApp automation, lead capture, booking automation, AI receptionist, real estate leads, salon booking, consultant CRM, agency automation, multilingual chatbot",
 };
 
 export default async function RootLayout({
