@@ -5,13 +5,13 @@ import { redirect } from 'next/navigation'
 export async function POST() {
   const supabase = await createClient()
 
-  // Check if we have a session
-  const { data: { session } } = await supabase.auth.getSession()
+  // Use getUser() for secure server-side verification (recommended over getSession)
+  const { data: { user } } = await supabase.auth.getUser()
 
-  if (session) {
+  if (user) {
     await supabase.auth.signOut()
   }
 
   revalidatePath('/', 'layout')
-  redirect('/login')
+  redirect('/en/login')
 }

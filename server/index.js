@@ -211,7 +211,7 @@ app.post("/webhook/:orgId", async (req, res) => {
 // WhatsApp Graph API sender
 // ──────────────────────────────────────────────
 async function sendWhatsAppMessage(recipientPhone, textBody, phoneId, accessToken) {
-  const url = `https://graph.facebook.com/v17.0/${phoneId}/messages`;
+  const url = `https://graph.facebook.com/v21.0/${phoneId}/messages`;
 
   await axios.post(
     url,
