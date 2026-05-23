@@ -8,7 +8,14 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Building2, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
-export function SettingsForm({ initialOrg }: { initialOrg: any }) {
+interface Organization {
+  id: string;
+  name: string;
+  type?: string | null;
+  tier?: string | null;
+}
+
+export function SettingsForm({ initialOrg }: { initialOrg: Organization | null }) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -22,6 +29,12 @@ export function SettingsForm({ initialOrg }: { initialOrg: any }) {
     setLoading(true);
     setSuccess(false);
     setError(null);
+
+    if (!initialOrg?.id) {
+      setLoading(false);
+      setError("Organization ID is missing.");
+      return;
+    }
 
     const { error: updateError } = await supabase
       .from('organizations')
