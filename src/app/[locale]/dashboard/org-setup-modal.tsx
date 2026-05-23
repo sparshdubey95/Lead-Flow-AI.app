@@ -23,6 +23,9 @@ export function OrgSetupModal({ userId }: { userId: string }) {
     setLoading(true)
     setError(null)
 
+    // Force the client SDK to refresh its internal token cache
+    await supabase.auth.getUser()
+
     // 1. Create Organization
     const { data: orgData, error: orgError } = await supabase
       .from("organizations")
