@@ -1,96 +1,105 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { createClient } from "@/utils/supabase/client"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Building2 } from "lucide-react"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
-export function OrgSetupModal({ userId }: { userId: string }) {
-  const [orgName, setOrgName] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const router = useRouter()
-  const supabase = createClient()
+export function OrgSetupModal() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [orgName, setOrgName] = useState("");
+  const router = useRouter();
+  const supabase = createClient();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!orgName.trim()) return
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
 
-    setLoading(true)
-    setError(null)
+    try {
+      // 1. Hydrate the session to ensure cookies/tokens are actively synced
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      
+      if (sessionError || !session) {
+        throw new Error("No active session found. Please refresh the page or log in again.");
+      }
 
-    // Force the client SDK to refresh its internal token cache
-    await supabase.auth.getUser()
+      const user = session.user;
 
-    // 1. Create Organization
-    const { data: orgData, error: orgError } = await supabase
-      .from("organizations")
-      .insert({ name: orgName })
-      .select()
-      .single()
+      // 2. Insert the Organization
+      const { data: orgData, error: orgError } = await supabase
+        .from('organizations')
+        .insert([{ name: orgName }])
+        .select('id')
+        .single();
 
-    if (orgError) {
-      setError(orgError.message)
-      setLoading(false)
-      return
+      if (orgError) {
+        console.error("Organizations Insert Error:", orgError);
+        throw new Error(`Failed to create organization: ${orgError.message} (Details: ${orgError.details || 'None'})`);
+      }
+
+      if (!orgData?.id) {
+        throw new Error("Organization created but no ID was returned.");
+      }
+
+      // 3. Update the Profile to link the Organization
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .update({ organization_id: orgData.id })
+        .eq('id', user.id);
+
+      if (profileError) {
+        console.error("Profiles Update Error:", profileError);
+        throw new Error(`Failed to link profile: ${profileError.message} (Details: ${profileError.details || 'None'})`);
+      }
+
+      // 4. Force Next.js Layout to Re-fetch Data
+      // This is what makes the modal disappear!
+      router.refresh();
+
+    } catch (err: any) {
+      console.error("Setup Flow Exception:", err);
+      setError(err.message || "An unexpected error occurred during setup.");
+    } finally {
+      setLoading(false);
     }
-
-    // 2. Update Profile with Organization ID
-    const { error: profileError } = await supabase
-      .from("profiles")
-      .update({ organization_id: orgData.id })
-      .eq("id", userId)
-
-    if (profileError) {
-      setError(profileError.message)
-      setLoading(false)
-      return
-    }
-
-    // Success! Refresh the page to dismiss the modal naturally
-    router.refresh()
-  }
+  };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-      <Card className="w-full max-w-md shadow-2xl border-primary/20 animate-in fade-in zoom-in duration-300">
-        <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-            <Building2 className="w-6 h-6 text-primary" />
+    <Dialog open={true}>
+      <DialogContent className="sm:max-w-[425px]" showCloseButton={false}>
+        <DialogHeader>
+          <DialogTitle>Setup your Organization</DialogTitle>
+          <DialogDescription>
+            Create your company workspace to get started.
+          </DialogDescription>
+        </DialogHeader>
+        <form onSubmit={onSubmit} className="space-y-4 pt-4">
+          <div className="space-y-2">
+            <Label htmlFor="orgName">Organization Name</Label>
+            <Input
+              id="orgName"
+              placeholder="e.g. Acme Corp"
+              value={orgName}
+              onChange={(e) => setOrgName(e.target.value)}
+              required
+              disabled={loading}
+            />
           </div>
-          <CardTitle className="font-serif text-2xl">Setup Your Clinic</CardTitle>
-          <CardDescription>
-            Welcome to TryAssistly.AI! Please enter your organization name to get started.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="orgName">Clinic Name</Label>
-              <Input
-                id="orgName"
-                placeholder="e.g. Apex Dental Care"
-                value={orgName}
-                onChange={(e) => setOrgName(e.target.value)}
-                required
-                autoFocus
-              />
+          {error && (
+            <div className="text-sm font-medium text-red-500 bg-red-50 p-3 rounded-md border border-red-200">
+              {error}
             </div>
-            
-            {error && (
-              <p className="text-sm text-destructive text-center">{error}</p>
-            )}
-
-            <Button type="submit" className="w-full" disabled={loading || !orgName.trim()}>
-              {loading ? "Setting up..." : "Continue to Dashboard"}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
-  )
+          )}
+          <Button type="submit" className="w-full" disabled={loading || !orgName.trim()}>
+            {loading ? "Creating workspace..." : "Create Organization"}
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
 }
