@@ -13,8 +13,13 @@ export function OrgSetupModal({ userId }: { userId: string }) {
   const [orgName, setOrgName] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [isSuccess, setIsSuccess] = useState(false)
   const router = useRouter()
   const supabase = createClient()
+
+  // If the flow completed successfully, unmount the modal client-side immediately
+  // to prevent it from getting stuck during Next.js layout re-validation.
+  if (isSuccess) return null
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -24,41 +29,40 @@ export function OrgSetupModal({ userId }: { userId: string }) {
     setError(null)
 
     try {
-      // 1. Ensure the session is fresh before attempting mutations
       const { data: { session }, error: sessionError } = await supabase.auth.getSession()
       if (sessionError || !session) {
-        throw new Error("Authentication missing. Please refresh the page.")
+        throw new Error("Session expired. Please re-authenticate.")
       }
 
-      // 2. Generate the ID locally to break the RLS Chicken-and-Egg Trap
+      // Generate UUID client-side to bypass Supabase SELECT RLS checks entirely
       const newOrgId = crypto.randomUUID()
 
-      // 3. Insert without .select() so we don't trigger the restrictive SELECT policy
+      // Step 1: Create the organization entry
       const { error: orgError } = await supabase
         .from("organizations")
         .insert({ id: newOrgId, name: orgName })
       
       if (orgError) {
-        throw new Error(`Failed to create clinic: ${orgError.message}`)
+        throw new Error(`Failed to create workspace: ${orgError.message}`)
       }
 
-      // 4. Link the newly created Organization to the user's Profile
+      // Step 2: Update the profile with the generated organization identifier
       const { error: profileError } = await supabase
         .from("profiles")
         .update({ organization_id: newOrgId })
         .eq("id", userId)
 
       if (profileError) {
-        throw new Error(`Failed to link profile: ${profileError.message}`)
+        throw new Error(`Failed to update profile relation: ${profileError.message}`)
       }
 
-      // 5. Success! Invalidate the Next.js cache so the layout naturally unmounts the modal
+      // Step 3: Clear the modal client-side and trigger a background refresh
+      setIsSuccess(true)
       router.refresh()
 
     } catch (err: any) {
-      console.error("Setup Error:", err)
+      console.error("Critical onboarding transaction failure:", err)
       setError(err.message || "An unexpected error occurred.")
-    } finally {
       setLoading(false)
     }
   }
