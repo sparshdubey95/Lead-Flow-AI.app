@@ -50,7 +50,7 @@ export default async function InboxPage() {
 
   // 3. If no organization, show the setup modal
   if (!profile?.organization_id) {
-    return <OrgSetupModal />;
+    return <OrgSetupModal userId={user.id} />;
   }
 
   const orgId = profile.organization_id;
