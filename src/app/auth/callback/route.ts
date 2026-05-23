@@ -4,6 +4,7 @@ import { createClient } from '@/utils/supabase/server'
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
+  
   // next is the URL to redirect to after sign in. Defaults to /en/dashboard
   const next = searchParams.get('next') ?? '/en/dashboard'
 
@@ -12,6 +13,7 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     
     if (!error) {
+      // Successfully authenticated via email link or OAuth code
       return NextResponse.redirect(`${origin}${next}`)
     }
   }
